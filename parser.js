@@ -13,7 +13,7 @@ export default class Parser {
         let data = {};
         data.BucketOwner = parts[0];
         data.Bucket      = parts[1];
-        data.Datetime    = parts[2];
+        data.Time        = parts[2];
         data.RemoteIP    = parts[3];
         data.Requester   = parts[4];
         data.RequestID   = parts[5];
@@ -34,7 +34,7 @@ export default class Parser {
 
     _format(data) {
 
-        data.date = Moment(data.date, "DD/MMM/YYYY:HH:mm:ss ZZ").unix();
+        data.Time = Moment(data.date, "DD/MMM/YYYY:HH:mm:ss ZZ").unix();
 
         return data;
     }
