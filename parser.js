@@ -71,7 +71,7 @@ export default class Parser {
     }
 
     toJSON() {
-        return JSON.stringify(this.data, null, 4);
+        return JSON.stringify(this.data);
     }
 }
 
