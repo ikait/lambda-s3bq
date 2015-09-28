@@ -33,3 +33,6 @@ node_modules
 # build
 build
 build.zip
+
+# config
+src/config.js
