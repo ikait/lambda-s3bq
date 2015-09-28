@@ -7,11 +7,6 @@ export default {
     },
 
     gcp: {
-        clientId:     "",
-        clientSecret: "",
-        redirectUrl:  "",
-        accessToken:  "",
-        refreshToken: "",
         projectId:    "",
 
         bigQuery: {
