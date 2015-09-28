@@ -40,8 +40,9 @@ export default class Parser {
     }
 
     parseAsync() {
+        let self = this;
         return new Promise(resolve => {
-            resolve(parse())
+            resolve(self.parse())
         });
     }
 
