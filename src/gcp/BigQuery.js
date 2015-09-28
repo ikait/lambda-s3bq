@@ -6,14 +6,16 @@ import config from "../config.js";
 
 export default class BigQuery {
     constructor() {
-        this.bigquery = Google.bigquery("v2");
         this.auth = new GcpOAuth2().auth;
+        this.bigquery = Google.bigquery({
+            version: "v2",
+            auth: this.auth
+        });
     }
 
     insert(jsonObject, callback=()=>{}) {
         console.log(jsonObject);
         this.bigquery.tabledata.insertAll({
-            "auth": this.auth,
             "projectId": config.gcp.projectId,
             "datasetId": config.gcp.bigQuery.datasetId,
             "tableId": config.gcp.bigQuery.tableId,
@@ -39,7 +41,6 @@ export default class BigQuery {
             console.log(`[insert] BigQuery`);
             console.log(jsonObject);
             this.bigquery.tabledata.insertAll({
-                "auth": this.auth,
                 "projectId": config.gcp.projectId,
                 "datasetId": config.gcp.bigQuery.datasetId,
                 "tableId": config.gcp.bigQuery.tableId,

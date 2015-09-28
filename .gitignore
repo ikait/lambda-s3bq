@@ -39,3 +39,6 @@ build.zip
 
 # config
 src/config.js
+
+# account
+src/service_account.json
