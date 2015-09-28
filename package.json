@@ -1,13 +1,12 @@
 {
-  "name": "s3log-collector",
-  "version": "1.0.0",
+  "name": "lambda-s3bq",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Taishi Ikai",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.2.4",
     "core-js": "^1.1.4",
