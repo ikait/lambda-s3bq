@@ -34,7 +34,7 @@ export default class Parser {
 
     _format(data) {
 
-        data.Time = Moment(data.date, "DD/MMM/YYYY:HH:mm:ss ZZ").unix();
+        data.Time = Moment(data.Time, "DD/MMM/YYYY:HH:mm:ss Z").utc().unix();
 
         return data;
     }
