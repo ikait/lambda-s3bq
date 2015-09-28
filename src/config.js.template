@@ -1,0 +1,23 @@
+export default {
+
+    aws: {
+        region: "ap-northeast-1",
+        accessKeyId: "",
+        secretAccessKey: ""
+    },
+
+    gcp: {
+        clientId:     "",
+        clientSecret: "",
+        redirectUrl:  "",
+        accessToken:  "",
+        refreshToken: "",
+        projectId:    "",
+
+        bigQuery: {
+            datasetId: "",
+            tableId:   ""
+        }
+    }
+
+};

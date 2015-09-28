@@ -3,25 +3,99 @@ This collect S3 logs on AWS Lambda and convert these into json comform to format
 
 ## BigQuery Scheme
 
-```
-BucketOwner:STRING,
-Bucket:STRING,
-Time:TIMESTAMP,
-RemoteIP:STRING,
-Requester:STRING,
-RequestID:STRING,
-Operation:STRING,
-Key:STRING,
-RequestURI:STRING,
-HTTPStatus:STRING,
-ErrorCode:STRING,
-BytesSent:STRING,
-ObjectSize:STRING,
-TotalTime:STRING,
-TurnAroundTime:STRING,
-Referrer:STRING,
-UserAgent:STRING,
-VersionID:STRING
+```json
+[
+    {
+        "name": "BucketOwner",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "Bucket",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "Time",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "RemoteIP",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "Requester",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "RequestID",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "Operation",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "Key",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "RequestURI",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "HTTPStatus",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "ErrorCode",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "BytesSent",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "ObjectSize",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "TotalTime",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "TurnAroundTime",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "Referrer",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "UserAgent",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    },
+    {
+        "name": "VersionID",
+        "type": "STRING",
+        "mode": "REQUIRED"
+    }
+]
 ```
 
 It requires given logs to comform to [Server Access Log Format](http://docs.aws.amazon.com/AmazonS3/latest/dev/LogFormat.html) of Amazon S3.
