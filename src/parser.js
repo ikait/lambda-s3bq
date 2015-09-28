@@ -39,6 +39,12 @@ export default class Parser {
         return data;
     }
 
+    parseAsync() {
+        return new Promise(resolve => {
+            resolve(parse())
+        });
+    }
+
     parse() {
         let parts = [];
         let restString = this.line;
@@ -66,8 +72,7 @@ export default class Parser {
         }
 
         this.data = this._format(this._object(parts));
-
-        return this;
+        return this.data;
     }
 
     toJSON() {
