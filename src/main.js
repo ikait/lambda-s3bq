@@ -17,9 +17,9 @@ export function handler(event, context) {
                 bq.insertAsync(data));
         }))
     })
-        .catch(() =>
-            context.fail())
-        .then(() =>
-            context.succeed());
+        .catch(error =>
+            context.fail(error))
+        .then(msg =>
+            context.succeed(msg));
 }
 
