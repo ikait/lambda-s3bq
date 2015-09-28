@@ -32,9 +32,13 @@ gulp.task("install", () =>
         .pipe(gulp.dest("build"))
         .pipe(install({production: true})));
 
+gulp.task("copy", () =>
+    gulp.src(["./src/**/*.json"], {base: "src"})
+        .pipe(gulp.dest("build")));
+
 gulp.task("zip", () =>
     gulp.src("./build/**/*")
         .pipe(zip("build.zip"))
         .pipe(gulp.dest(".")));
 
-gulp.task("build", ["babel", "install"]);
+gulp.task("build", ["babel", "install", "copy"]);
