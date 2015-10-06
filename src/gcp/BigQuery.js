@@ -2,10 +2,23 @@ import "core-js";
 import Google from "googleapis";
 import GcpOAuth2 from "./OAuth2.js";
 import config from "../config.js";
+import LogCollector from "../LogCollector.js";
 
 
-export default class BigQuery {
-    constructor(tableId=config.gcp.bigQuery.tableId, datasetId=config.gcp.bigQuery.datasetId, projectId=config.gcp.projectId) {
+export default class BigQuery extends LogCollector {
+
+    /**
+     * @param bucket
+     * @param key
+     * @param tableId
+     * @param datasetId
+     * @param projectId
+     */
+    constructor(bucket, key,
+                tableId=config.gcp.bigQuery.tableId,
+                datasetId=config.gcp.bigQuery.datasetId,
+                projectId=config.gcp.projectId) {
+        super(bucket, key);
         this.auth = new GcpOAuth2().auth;
         this.tableId = tableId;
         this.datasetId = datasetId;
@@ -14,55 +27,36 @@ export default class BigQuery {
             version: "v2",
             auth: this.auth
         });
+
+        if (config.gcp.bigQuery.decideTableIdFromBucketName) {
+            this.tableId = bucket.replace(/\./g, "_");
+        }
     }
 
-    insert(jsonObject, callback=()=>{}) {
-        console.log(jsonObject);
+    /**
+     * Insert json string given to BigQuery.
+     *
+     * @param parser Parser
+     * @returns {Promise}
+     */
+    insertAsync(parser) {
         let self = this;
-        this.bigquery.tabledata.insertAll({
-            "projectId": self.projectId,
-            "datasetId": self.datasetId,
-            "tableId": self.tableId,
-            "resource": {
-                "kind": "bigquery#tableDataInsertAllRequest",
-                "rows": [
-                    {
-                        "json": jsonObject
-                    }
-                ]
-            }
-        }, (error, result) => {
-            if (error) {
-                return console.error(error);
-            }
-            console.log(result);
-            callback(result);
-        });
-    }
+        return parser.parseAsync().then(parsedParser => {
+            let jsonString = parsedParser.toJSON();
 
-    insertAsync(jsonObject) {
-        return new Promise((resolve, reject) => {
-            console.log(`[insert] BigQuery`);
-            console.log(jsonObject);
-            let self = this;
-            this.bigquery.tabledata.insertAll({
+            return new Promise((resolve, reject) => self.bigquery.tabledata.insertAll({
                 "projectId": self.projectId,
                 "datasetId": self.datasetId,
-                "tableId": self.tableId,
+                "tableId":   self.tableId,
                 "resource": {
                     "kind": "bigquery#tableDataInsertAllRequest",
                     "rows": [
                         {
-                            "json": jsonObject
+                            "json": jsonString
                         }
                     ]
                 }
-            }, (error, result) => {
-                if (error) {
-                    return reject(error);
-                }
-                return resolve(result);
-            })
+            }, (error, result) => error ? reject(error) : resolve(result)));
         });
     }
 }
