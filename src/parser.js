@@ -9,7 +9,14 @@ export default class Parser {
         this.line = line;
     }
 
-    _object(parts) {
+    /**
+     * Mapping parts
+     *
+     * @param parts
+     * @returns {{}}
+     * @private
+     */
+    _mapping(parts) {
         let data = {};
         data.BucketOwner = parts[0];
         data.Bucket      = parts[1];
@@ -32,6 +39,13 @@ export default class Parser {
         return data;
     }
 
+    /**
+     * Set Time to unixtime
+     *
+     * @param data
+     * @returns {*}
+     * @private
+     */
     _format(data) {
 
         data.Time = Moment(data.Time, "DD/MMM/YYYY:HH:mm:ss Z").utc().unix();
@@ -39,6 +53,11 @@ export default class Parser {
         return data;
     }
 
+    /**
+     * Parse async
+     *
+     * @returns {Promise}, Parser(self)
+     */
     parseAsync() {
         let self = this;
         return new Promise(resolve => {
@@ -46,6 +65,11 @@ export default class Parser {
         });
     }
 
+    /**
+     * Parse and return self
+     *
+     * @returns {Parser}
+     */
     parse() {
         let parts = [];
         let restString = this.line;
@@ -72,10 +96,15 @@ export default class Parser {
             }
         }
 
-        this.data = this._format(this._object(parts));
-        return this.data;
+        this.data = this._format(this._mapping(parts));
+        return this;
     }
 
+    /**
+     * Get json string
+     *
+     * @returns string
+     */
     toJSON() {
         return JSON.stringify(this.data);
     }
